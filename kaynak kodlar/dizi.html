@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Film ve Dizi Önerileri</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+      <a href="moviegenerator.html"> 
+        <img class="logo" src="logo.png" alt="MovieMap"> 
+      </a>
+    </header>
+    <h1>Dizi Önerileri</h1>
+
+    <div class="container">
+        <form id="preference-form">
+            <label for="genre">İzlemek İstediğiniz Tür:</label>
+            <select id="genre" name="genre" required>
+                <option value="komedi">Komedi</option>
+                <option value="dram">Dram</option>
+                <option value="aksiyon">Aksiyon</option>
+                <option value="bilimkurgu">Bilim Kurgu</option>
+                <option value="korku">Korku</option>
+            </select>
+
+            <label for="mood">Ruh Hali:</label>
+            <select id="mood" name="mood" required>
+                <option value="neseli">Neşeli</option>
+                <option value="uzgun">Üzgün</option>
+                <option value="heyecanli">Heyecanlı</option>
+                <option value="rahat">Rahatlatıcı</option>
+            </select>
+
+            <button type="button" id="get-recommendations">Önerileri Gör</button>
+        </form>
+
+        <div id="recommendations" class="öneriler">
+
+        </div>
+    </div>
+
+
+    <script>
+        document.getElementById("get-recommendations").addEventListener("click", function() {
+            const genre = document.getElementById("genre").value;
+            const mood = document.getElementById("mood").value;
+            const recommendations = [
+                { title: "Brooklyn-99", genre: "komedi", mood: "neseli", description: "Brooklyn Nine-Nine, polisiye komedi tarzında Amerikan yapımı bir televizyon dizisidir. ABD'de Fox tarafından yayınlanmaktadır. Dizi New York Polisi'nin Brooklyn'deki kurgusal 99. Bölge Karakolu'ndaki dedektiflerinin ve yeni atanan polis şefinin başından geçen olayları konu alır." },
+                { title: "Recep İvedik", genre: "komedi", mood: "uzgun", description: "Recep İvedik, 22 Şubat 2008'de vizyona giren, Şahan Gökbakar'ın oynadığı sinema filmi. Dikkat Şahan Çıkabilir'in Recep İvedik karakterinin TV'de tutmasının üzerine çekilmiştir." },
+                { title: "The Good Place", genre: "komedi", mood: "heyecanli", description: "The Good Place, NBC'de yayınlanan ABD fantastik komedi televizyon dizisi." },
+                { title: "The Office", genre: "komedi", mood: "rahat", description: "The Office, kurgusal bir şirket olan Dunder Mifflin Paper Company'nin Scranton, Pensilvanya'daki şubesinin ofis çalışanlarının günlük çalışma hayatlarını anlatan bir Amerikan sahte belgesel durum komedisi televizyon dizisidir. 24 Mart 2005'ten 16 Mayıs 2013'e kadar toplamda 9 sezon boyunca NBC'de yayınlandı." },
+                { title: "Succession", genre: "dram", mood: "neseli", description: "Succession, Jesse Armstrong tarafından yaratılan bir Amerikan satirik kara komedi - drama televizyon dizisidir. 3 Haziran 2018'de HBO’da gösterime girdi." },
+                { title: "Suits", genre: "dram", mood: "uzgun", description: "Suits, Gabriel Macht ve Patrick J. Adams'ın başrollerinde oynadığı USA Network kanalında yayımlanan televizyon dizisidir. 17 Temmuz 2019'da final yapan dizi, elde ettiği başarının ardından Pearson adlı tek sezon süren bir spin-off yapımı ile evrenini genişletmiştir. " },
+                { title: "Lost", genre: "dram", mood: "heyecanli", description: "Lost, Amerikan drama televizyon dizisidir. Program, Sidney, Avustralya'dan Los Angeles, Amerika Birleşik Devletleri'ne uçan bir yolcu uçağının kaza yapması sonucu Güney Pasifik'te gizemli bir adaya düşen kazazedelerin hikâyelerini konu edinmektedir." },
+                { title: "Fleabag", genre: "dram", mood: "rahat", description: "Fleabag, Phoebe Waller-Bridge tarafından yaratılan İngiliz komedi-drama televizyon dizisi. Waller-Bridge, Londra'da özgür ruhlu ve cinsel açıdan aktif ama öfkeli ve kafası karışmış genç bir kadın olan baş karakter olarak rol alıyor." },
+                { title: "Outer Banks", genre: "aksiyon", mood: "neseli", description: "İngilizceden çevrilmiştir-Outer Banks, Josh Pate, Jonas Pate ve Shannon Burke tarafından yaratılan ve 15 Nisan 2020'de Netflix'te ilk gösterimi yapılan bir Amerikan aksiyon-macera gizem gençlik draması televizyon dizisidir. " },
+                { title: "Ragnarok", genre: "aksiyon", mood: "uzgun", description: "Ragnarok, 31 Ocak 2020'de yayınlanmaya başlanan, İskandinav mitolojisinden esinlenilen bir Norveç fantastik drama dizisidir. Dizinin ikinci sezonu Mayıs 2021'de yayınlandı. Netflix'in Home for Christmas ve Lilyhammer'dan sonra Norveççe yayınlanan üçüncü dizisidir. " },
+                { title: "The Boys", genre: "aksiyon", mood: "heyecanli", description: "The Boys, ABD yapımı süper kahraman temalı bir internet dizisidir. Garth Ennis ile Darick Robertson'ın aynı isimli çizgi romanından uyarlanan dizi, Eric Kripke tarafından Amazon Prime Video için geliştirilmiştir. Dizi, güçlerini süistimal eden süper kahramanlara karşı savaşan The Boys isimli bir ekibi konu almaktadır." },
+                { title: "Last of Us", genre: "aksiyon", mood: "rahat", description: "The Last of Us, 2023 yılı başında HBO Max'ta yayımlanmaya başlayan bir Amerikan televizyon dizisidir." },
+                { title: "Clone Wars", genre: "bilimkurgu", mood: "neseli", description: "Star Wars: Klon Savaşları, Amerikan animasyon televizyon dizisi. Sinema filmi Yıldız Savaşları'ndan uyarlanan dizi, serinin 2. ve 3. bölümleri arasında geçen olayları konu almaktadır. 2008 Ağustos ayında 98 dakikalık bir film ile başlayıp, 22 bölüm olarak planlanan ilk sezonunu" },
+                { title: "Black Mirror", genre: "bilimkurgu", mood: "uzgun", description: "Black Mirror; drama, macera, hiciv ve bilimkurgu tarzında 4 Aralık 2011 tarihinde yayınlanmaya başlayan İngiliz televizyon dizisi. " },
+                { title: "Dark", genre: "bilimkurgu", mood: "heyecanli", description: "Dark, Baran bo Odar ve Jantje Friese tarafından yaratılan bilimkurgu ve gerilim türündeki Alman İnternet dizisi. Almanca olan ilk Netflix orijinal dizisidir ve 1 Aralık 2017'de yayınlanmaya başlamıştır." },
+                { title: "The Umbrella Academy", genre: "bilimkurgu", mood: "rahat", description: "The Umbrella Academy dizinin kendi adından olan The Umbrella Academy adlı romandan uyarlanmış Amerikan bilimkurgu dizisidir. Dizinin 1 sezonu 10 bölüm olmak üzere 2 sezon 20 bölüm Netflix'te yayınlanmıştır. 3. Sezon 2020 Kasım ayında onaylanmış ve 2021 Şubat ayında çekimlerine başlanmıştır." },
+                { title: "Chilling Adventures of Sabrina", genre: "korku", mood: "neseli", description: "Chilling Adventures of Sabrina, Roberto Aguirre-Sacasa tarafından Netflix için aynı adlı Archie çizgi roman serisinden uyarlanmış, Amerikan doğaüstü korku web televizyon dizisidir. Dizi, Warner Bros. Television, Berlanti Productions ve Archie Comics ortaklığında üretilmiştir. " },
+                { title: "The Walking Dead", genre: "korku", mood: "uzgun", description: "The Walking Dead, Robert Kirkman, Tony Moore ve Charlie Adlard'ın aynı adlı çizgi roman serisine dayanan bir Amerikan kıyamet sonrası korku-dram televizyon dizisidir." },
+                { title: "From", genre: "korku", mood: "heyecanli", description: "From, John Griffin tarafından yaratılan bir Amerikan bilim kurgu korku televizyon dizisidir. İlk sezon 20 Şubat 2022'de Epix'te gösterime girdi. Dizinin başrollerinde Harold Perrineau, Catalina Sandino Moreno, Eion Bailey, David Alpay, Elizabeth Saunders, Scott McCord ve Ricky He yer alıyor." },
+                { title: "Tepedeki Ev", genre: "korku", mood: "rahat", description: "The Haunting: Tepedeki Ev, Netflix için Amblin Television ve Paramount Television prodüktörlüğünde Mike Flanagan tarafından yönetilen ABD doğaüstü korku dizisidir. The Haunting serisinin ilk dizisi olan yapım 12 Ekim 2018'de Netflix'te yayımlandı. " }
+            ];
+
+            const filtered = recommendations.filter(r => r.genre === genre && r.mood === mood);
+
+            const recommendationsContainer = document.getElementById("recommendations");
+            recommendationsContainer.innerHTML = "";
+
+            if (filtered.length > 0) {
+                filtered.forEach(item => {
+                    const div = document.createElement("div");
+                    div.classList.add("recommendation-item");
+                    div.innerHTML = `<h3>${item.title}</h3><p>${item.description}</p>`;
+                    recommendationsContainer.appendChild(div);
+                });
+            } else {
+                recommendationsContainer.innerHTML = "<p>Maalesef, eşleşen öneri bulunamadı.</p>";
+            }
+        });
+    </script>
+</body>
+</html>

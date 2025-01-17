@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Film ve Dizi Önerileri</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+      <a href="moviegenerator.html"> 
+        <img class="logo" src="logo.png" alt="MovieMap"> 
+      </a>
+    </header>
+    <h1>Film Önerileri</h1>
+
+    <div class="container">
+        <form id="preference-form">
+            <label for="genre">İzlemek İstediğiniz Tür:</label>
+            <select id="genre" name="genre" required>
+                <option value="komedi">Komedi</option>
+                <option value="dram">Dram</option>
+                <option value="aksiyon">Aksiyon</option>
+                <option value="bilimkurgu">Bilim Kurgu</option>
+                <option value="korku">Korku</option>
+            </select>
+
+            <label for="mood">Ruh Hali:</label>
+            <select id="mood" name="mood" required>
+                <option value="neseli">Neşeli</option>
+                <option value="uzgun">Üzgün</option>
+                <option value="heyecanli">Heyecanlı</option>
+                <option value="rahat">Rahatlatıcı</option>
+            </select>
+
+            <button type="button" id="get-recommendations">Önerileri Gör</button>
+        </form>
+
+        <div id="recommendations" class="öneriler">
+
+        </div>
+    </div>
+
+
+    <script>
+        document.getElementById("get-recommendations").addEventListener("click", function() {
+            const genre = document.getElementById("genre").value;
+            const mood = document.getElementById("mood").value;
+            const recommendations = [
+                { title: "A.R.O.G.", genre: "komedi", mood: "neseli", description: "A.R.O.G, Cem Yılmaz'ın yazıp Ali Taner Baltacı ile birlikte yönettiği, 2008 yapımı bilimkurgu ve fantastik komedi filmidir. Film, G.O.R.A. filminin ana karakteri Arif'in Yontma Taş Devri'nde geçen yeni macerasını konu almaktadır. 5 Aralık 2008 tarihinde Türkiye'deki sinemalarda gösterime girmiştir." },
+                { title: "50 First Dates", genre: "komedi", mood: "uzgun", description: "50 İlk Öpücük, 2004 yapımı romantik komedi türündeki ABD filmidir. Başrollerde Adam Sandler ve Drew Barrymore'un yer aldığı filmin yönetmenliğini Peter Segal üstlenmektedir. Barrymore ile Sandler önceki yapım Evlilik Öpücüğü filminden sonra ikinci defa bir araya gelmiştir." },
+                { title: "Home Alone", genre: "komedi", mood: "heyecanli", description: "Ailesini sevmeyen Kevin aldigi cezadan dolayi geceyi çati katinda geçirir. Bir sonraki gün uyandiginda ailesinin evde olmadigini, tatile giderken onu evde unuttuklarini fark eder. Bu durumda panikleyen Kevin firsat oldugunu çok geçmeden anlar ve yalnizligin keyfini çikarmaya baslar." },
+                { title: "Grown Ups", genre: "komedi", mood: "rahat", description: "Büyükler Amerikan yapımı komedi filmi, serinin ilk filmi. Yönetmenliğini Dennis Dugan yapmış, hikâye Adam Sandler ve Fred Wolf tarafından yazılmıştır." },
+                { title: "Forrest Gump", genre: "dram", mood: "neseli", description: "Forrest Gump, 1986 yılında Winston Groom tarafından aynı adla yayımlanan romandan esinlenerek çekilmiş, 1994 yapımı epik, romantik, komedi-drama dalında bir filmdir. Robert Zemeckis tarafından çekilmiş ve Tom Hanks, Robin Wright, Gary Sinise ve Sally Field başrol oyunculuklarını yapmıştır." },
+                { title: "The Pursuit of Happyness", genre: "dram", mood: "uzgun", description: "Umudunu Kaybetme, Gabriele Muccino'nun yönetmenliğini üstlendiği Amerikan yapımı dram filmidir. Chris Gardner'ın biyografisi niteliğinde olan filmde Gardner'ı Will Smith canlandırmıştır. " },
+                { title: "Prestige", genre: "dram", mood: "heyecanli", description: "Prestij, yönetmenliğini Christopher Nolan'ın yaptığı 2006 ABD-Birleşik Krallık ortak yapımı film. Yazar Christopher Priest'in aynı adlı romanından sinemaya uyarlanmıştır. Nolan'a, senaryo yazımında 2000 yılında Akıl Defteri filminde de birlikte çalıştığı kardeşi Jonathan Nolan eşlik etmiştir." },
+                { title: "Gifted", genre: "dram", mood: "rahat", description: "Rüya içinde rüya, bilinçaltında bir macera.Gifted, Marc Webb'in yönettiği ve Tom Flynn'in yazdığı 2017 Amerikan drama filmidir. Başrollerde Chris Evans, Mckenna Grace, Lindsay Duncan, Jenny Slate ve Octavia Spencer yer alıyor." },
+                { title: "Bullet Train", genre: "aksiyon", mood: "neseli", description: "Suikast Treni, David Leitch tarafından yönetilen 2022 Amerikan aksiyon komedi filmi. Film, Kōtarō Isaka'nın Maria Beetle adlı romanına dayanmaktadır. " },
+                { title: "Inception", genre: "aksiyon", mood: "uzgun", description: "Başlangıç, 2010 bilimkurgu aksiyon filmidir. Film, Christopher Nolan tarafından yazılmış ve yönetilmiş olup, yapımcılığını eşi Emma Thomas ile birlikte üstlenmiştir. Başrollerinde Leonardo DiCaprio, hedeflerinin bilinçaltına sızarak bilgi çalan bir profesyonel hırsızı canlandırır." },
+                { title: "V for Vendetta", genre: "aksiyon", mood: "heyecanli", description: "V for Vendetta, 2005 ABD-Almanya ortak yapımı olup 2006'da gösterime giren film. Wachowski kardeşlerin sinemaya uyarlayıp yapımcılığını üstlendiği filmi daha önce Matrix üçlemesinde yardımcı yönetmenlik yapan James McTeigue yönetti.Bir kağıt şirketindeki sıradan ofis yaşamının komik anları." },
+                { title: "Leon The Professional", genre: "aksiyon", mood: "rahat", description: "Sevginin Gücü; Luc Besson tarafından yazılan ve yönetilen, 1994 yılı Fransa yapımı bir filmdir." },
+                { title: "Avatar", genre: "bilimkurgu", mood: "neseli", description: "Avatar, 2009 ABD yapımı destansı bilim kurgu filmi. Filmin senaryosunu Titanik, Yaratık 2, Terminatör filmlerinin yönetmeni James Cameron yazmış ve filmi yönetmiştir. Üç boyutlu sinema tekniği ile çekilmiştir. 18 Aralık 2009 tarihinde gösterime girmiştir." },
+                { title: "Interstellar", genre: "bilimkurgu", mood: "uzgun", description: "Yıldızlararası, Christopher Nolan tarafından yönetilen, epik bilimkurgu türündeki 2014 yapımı bir ABD filmidir. Başrollerinde Matthew McConaughey, Anne Hathaway, Jessica Chastain, Bill Irwin, Ellen Burstyn, Matt Damon ve Michael Caine yer almaktadır." },
+                { title: "Edge of Tomorrow", genre: "bilimkurgu", mood: "heyecanli", description: "Yarının Sınırında, Doug Liman tarafından yönetilen ve senaryosu Hiroshi Sakurazaka'nın 2004'te yayınlanan All You Need Is Kill adlı Japon light novelinden uyarlanan 2014 Amerika yapımı bilimkurgu, aksiyon filmi. Filmin başrollerini Tom Cruise ve Emily Blunt paylaşmaktadır." },
+                { title: "Eternal Sunshine of the Spotless Mind", genre: "bilimkurgu", mood: "rahat", description: "Sil Baştan, Oscar kazanmış 2004 yapımı Amerikan bilimkurgu romantik drama filmidir. Lekesiz Zihnin Ebedi Güneşi 2004 Amerikalı bilimkurgu romantik drama yönetmenliğini yaptığı film Michel Gondry dayalı Charlie Kaufman's senaryo ve bir hikâye Gondry, Kaufman ve Pierre Bizmut." },
+                { title: "Smile", genre: "korku", mood: "neseli", description: "Gülümse, Parker Finn'in 2020 kısa filmi Laura Hasn't Slept'e dayanan ilk uzun metrajlı filminde yazıp yönettiği yaklaşan bir Amerikan psikolojik korku filmi. " },
+                { title: "The Conjuring", genre: "korku", mood: "uzgun", description: "Korku Seansı veya İngilizce adıyla The Conjuring, James Wan'ın yönetmenliğini yaptığı, Chad ve Carey Hayes'in yazdığı 2013 yılında gösterime giren Amerikan doğaüstü korku filmi. Film Korku Seansı serisinin ilk filmidir. Korku Seansı, 19 Temmuz 2013'te Amerika Birleşik Devletleri'nde gösterime girdi." },
+                { title: "Insidious", genre: "korku", mood: "heyecanli", description: "Ruhlar Bölgesi James Wan tarafından yönetilen, Leigh Whannell tarafından yazılan ve Patrick Wilson, Rose Byrne ve Barbara Hershey'in oynadığı 2010 Amerikan-Kanada doğaüstü korku filmidir Bu, Ruhlar Bölgesi serisinin ilk filmi ve serinin hikâye içi kronolojisi açısından üçüncü filmdir." },
+                { title: "Scream", genre: "korku", mood: "rahat", description: "Scream, altı film, bir televizyon dizisi, ürünler ve oyunlar içeren bir Amerikan slasher serisidir. İlk dört film Wes Craven tarafından yönetildi. Dizi, ilk iki filmi ve dördüncü filmi yazan ve yedinci filmin yönetmenliğini üstlenecek olan Kevin Williamson tarafından yaratıldı. Ehren Kruger üçüncüyü yazdı." }
+            ];
+
+            const filtered = recommendations.filter(r => r.genre === genre && r.mood === mood);
+
+            const recommendationsContainer = document.getElementById("recommendations");
+            recommendationsContainer.innerHTML = "";
+
+            if (filtered.length > 0) {
+                filtered.forEach(item => {
+                    const div = document.createElement("div");
+                    div.classList.add("recommendation-item");
+                    div.innerHTML = `<h3>${item.title}</h3><p>${item.description}</p>`;
+                    recommendationsContainer.appendChild(div);
+                });
+            } else {
+                recommendationsContainer.innerHTML = "<p>Maalesef, eşleşen öneri bulunamadı.</p>";
+            }
+        });
+    </script>
+</body>
+</html>
